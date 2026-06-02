@@ -9,19 +9,19 @@
         to get started.
     </p>
 
-    <?php if ($user) { ?>
+    <?php if ($user): ?>
         <div class="mt-8 flex items-center gap-3">
-            <p class="text-sm text-gray-500">Signed in as <?= $this->esc($user->getEmail()); ?>.</p>
-            <form method="POST" action="<?= $this->url('/logout'); ?>" class="inline">
-                <input type="hidden" name="_csrf_token" value="<?= $this->esc($logout_csrf, 'attr'); ?>">
+            <p class="text-sm text-gray-500">Signed in as <?= $this->esc($user->getEmail()) ?>.</p>
+            <form method="POST" action="<?= $this->url('/logout') ?>" class="inline">
+                <input type="hidden" name="_csrf_token" value="<?= $this->esc($logout_csrf, 'attr') ?>">
                 <button type="submit" class="text-sm font-medium text-gray-700 underline hover:text-gray-900">
                     Sign out
                 </button>
             </form>
         </div>
-    <?php } else { ?>
+    <?php else: ?>
         <p class="mt-8 text-sm text-gray-500">Not signed in.</p>
-    <?php } ?>
+    <?php endif; ?>
 
     <ul class="mt-10 grid gap-3 text-sm">
         <li><a class="text-blue-600 hover:underline" href="https://github.com/modufolio/appkit">Documentation</a></li>
