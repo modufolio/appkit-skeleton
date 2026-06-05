@@ -11,9 +11,9 @@
 
     <?php if ($user): ?>
         <div class="mt-8 flex items-center gap-3">
-            <p class="text-sm text-gray-500">Signed in as <?= $this->esc($user->getEmail()) ?>.</p>
-            <form method="POST" action="<?= $this->url('/logout') ?>" class="inline">
-                <input type="hidden" name="_csrf_token" value="<?= $this->esc($logout_csrf, 'attr') ?>">
+            <p class="text-sm text-gray-500">Signed in as <?= $this->esc($user->getEmail()); ?>.</p>
+            <form method="POST" action="<?= $this->url('/logout'); ?>" class="inline">
+                <input type="hidden" name="_csrf_token" value="<?= $this->esc($logout_csrf, 'attr'); ?>">
                 <button type="submit" class="text-sm font-medium text-gray-700 underline hover:text-gray-900">
                     Sign out
                 </button>

@@ -39,7 +39,7 @@ class AppFactory
         (require $baseDir.'/config/security.php')($security);
 
         $env = env('APP_ENV');
-        $doctrineConfig = $env !== null && is_file($baseDir."/config/{$env}/doctrine.php")
+        $doctrineConfig = null !== $env && is_file($baseDir."/config/{$env}/doctrine.php")
             ? $baseDir."/config/{$env}/doctrine.php"
             : $baseDir.'/config/doctrine.php';
 
