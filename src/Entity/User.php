@@ -16,7 +16,7 @@ class User implements PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    private int $id;
+    private ?int $id = null;
 
     #[Assert\NotBlank]
     #[Assert\Email]
@@ -26,6 +26,7 @@ class User implements PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private string $password;
 
+    /** @var list<string> */
     #[ORM\Column(type: 'json')]
     private array $roles = [];
 
@@ -62,9 +63,10 @@ class User implements PasswordAuthenticatedUserInterface
         $roles = $this->roles;
         $roles[] = 'ROLE_USER';
 
-        return array_unique($roles);
+        return array_values(array_unique($roles));
     }
 
+    /** @param list<string> $roles */
     public function setRoles(array $roles): void
     {
         $this->roles = $roles;

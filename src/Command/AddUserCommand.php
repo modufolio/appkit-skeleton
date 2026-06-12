@@ -150,6 +150,7 @@ class AddUserCommand extends Command
         }
     }
 
+    /** @return list<string> */
     private function collectRoles(InputInterface $input): array
     {
         $roles = $input->getOption('roles') ?? [];

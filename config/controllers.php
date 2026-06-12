@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 use App\Controller\HomeController;
 use App\Controller\SecurityController;
+use Modufolio\Appkit\Security\Authenticator\RememberMeAuthenticator;
 use Modufolio\Appkit\Security\Csrf\CsrfTokenManagerInterface;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\Session\FlashBagAwareSessionInterface;
 
 return [
     HomeController::class => [
@@ -13,6 +14,7 @@ return [
     ],
     SecurityController::class => [
         CsrfTokenManagerInterface::class,
-        SessionInterface::class,
+        FlashBagAwareSessionInterface::class,
+        RememberMeAuthenticator::class,
     ],
 ];

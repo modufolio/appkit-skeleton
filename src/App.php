@@ -44,6 +44,13 @@ class App extends Kernel
     private ?CsrfTokenManagerInterface $csrfTokenManager = null;
     private ?UserProviderInterface $userProvider = null;
 
+    /**
+     * @param array<string, mixed> $authenticators
+     * @param array<string, mixed> $controllers
+     * @param array<string, mixed> $factories
+     * @param array<string, mixed> $fileMap
+     * @param array<string, mixed> $repositories
+     */
     public function __construct(
         string $baseDir,
         LoaderInterface $routeLoader,

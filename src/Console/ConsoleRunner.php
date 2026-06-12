@@ -75,9 +75,14 @@ final class ConsoleRunner
     public Application $cli;
     private Router $router;
     private ?EntityManagerInterface $entityManager = null;
+    /** @var array<string, string> */
     private array $fileMap = [];
     private ?string $env = null;
 
+    /**
+     * @param \Composer\Autoload\ClassLoader $classLoader
+     * @param class-string                   $userClass
+     */
     public function __construct(
         private $classLoader,
         private string $userClass,
@@ -131,6 +136,9 @@ final class ConsoleRunner
         );
     }
 
+    /**
+     * @param list<\Symfony\Component\Console\Command\Command> $commands
+     */
     public function addCommands(array $commands = []): self
     {
         $this->cli->addCommands($commands);
