@@ -6,6 +6,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Modufolio\Appkit\Core\Environment;
 use Modufolio\Appkit\Resolver\ParameterResolverInterface;
 use Modufolio\Appkit\Routing\RouterInterface;
+use Modufolio\Appkit\Security\Authenticator\RememberMeAuthenticator;
+use Modufolio\Appkit\Security\BruteForce\BruteForceProtectionInterface;
+use Modufolio\Appkit\Security\BruteForce\FileBruteForceProtection;
 use Modufolio\Appkit\Security\Csrf\CsrfTokenManagerInterface;
 use Modufolio\Appkit\Security\Token\TokenStorageInterface;
 use Modufolio\Appkit\Security\User\UserChecker;
@@ -26,8 +29,16 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 return [
+    BruteForceProtectionInterface::class => fn () => new FileBruteForceProtection($this->baseDir.'/var/brute-force'),
     CsrfTokenManagerInterface::class => fn () => $this->csrfTokenManager(),
     EntityManagerInterface::class => fn () => $this->entityManager(),
+    RememberMeAuthenticator::class => fn () => new RememberMeAuthenticator(
+        userProvider: $this->userProvider(),
+        options: [
+            'secret' => env('REMEMBER_ME_SECRET'),
+            'cookie_secure' => filter_var(env('COOKIE_SECURE'), FILTER_VALIDATE_BOOL),
+        ],
+    ),
     Environment::class => fn () => $this->environment(),
     FlashBagAwareSessionInterface::class => fn () => $this->session(),
     FlashBagInterface::class => fn () => $this->session()->getFlashBag(),
