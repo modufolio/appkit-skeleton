@@ -8,13 +8,14 @@ use App\Entity\User;
 use Doctrine\ORM\EntityRepository;
 use Modufolio\Appkit\Security\Exception\UserNotFoundException;
 use Modufolio\Appkit\Security\User\PasswordAuthenticatedUserInterface;
+use Modufolio\Appkit\Security\User\PasswordUpgraderInterface;
 use Modufolio\Appkit\Security\User\UserInterface;
 use Modufolio\Appkit\Security\User\UserProviderInterface;
 
 /**
  * @extends EntityRepository<User>
  */
-class UserRepository extends EntityRepository implements UserProviderInterface
+class UserRepository extends EntityRepository implements UserProviderInterface, PasswordUpgraderInterface
 {
     public function loadUserByIdentifier(string $identifier): UserInterface
     {

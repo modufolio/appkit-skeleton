@@ -2,6 +2,20 @@
 
 A minimal starting point for [modufolio/appkit](https://github.com/modufolio/appkit) applications.
 
+## Documentation
+
+Full framework documentation lives in the AppKit repository:
+**[modufolio/appkit/docs](https://github.com/modufolio/appkit/tree/main/docs)**.
+
+Useful starting points:
+
+- [Getting started](https://github.com/modufolio/appkit/blob/main/docs/getting-started.md)
+- [Controllers](https://github.com/modufolio/appkit/blob/main/docs/controllers.md) · [Routing](https://github.com/modufolio/appkit/blob/main/docs/routing.md) · [Templates](https://github.com/modufolio/appkit/blob/main/docs/templates.md)
+- [Database](https://github.com/modufolio/appkit/blob/main/docs/database.md) · [Forms](https://github.com/modufolio/appkit/blob/main/docs/forms.md) · [File uploads](https://github.com/modufolio/appkit/blob/main/docs/file-uploads.md)
+- [Security](https://github.com/modufolio/appkit/blob/main/docs/security.md) · [Authenticators](https://github.com/modufolio/appkit/blob/main/docs/authenticators.md)
+- [Configuration](https://github.com/modufolio/appkit/blob/main/docs/configuration.md) · [Dependency injection](https://github.com/modufolio/appkit/blob/main/docs/dependency-injection.md) · [Console](https://github.com/modufolio/appkit/blob/main/docs/console.md)
+- [Testing](https://github.com/modufolio/appkit/blob/main/docs/testing.md) · [Deployment](https://github.com/modufolio/appkit/blob/main/docs/deployment.md)
+
 ## What's in the box
 
 - A single `HomeController` rendering a plain PHP template
