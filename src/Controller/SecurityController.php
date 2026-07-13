@@ -80,6 +80,7 @@ class SecurityController extends AbstractController
         }
 
         $value = $this->rememberMe->generateRememberMeCookie($user);
+        /** @var array{expires:int,path:string,domain:?string,secure:bool,httponly:bool,samesite:string} $options */
         $options = $this->rememberMe->getCookieOptions();
 
         return $response->withAddedHeader(

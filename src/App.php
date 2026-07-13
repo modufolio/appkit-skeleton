@@ -77,7 +77,7 @@ class App extends Kernel
     public function handle(ServerRequestInterface $request): ResponseInterface
     {
         $this->state?->reset();
-        unset($this->state);
+        $this->state = null;
 
         $this->state = new NativeApplicationState($request, $this->baseDir, $this->firewallConfig);
 

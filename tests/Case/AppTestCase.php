@@ -22,7 +22,9 @@ abstract class AppTestCase extends BaseTestCase
     protected function app(): App
     {
         if (!isset(self::$app)) {
-            self::$app = AppFactory::create(dirname(__DIR__, 2));
+            $app = AppFactory::create(dirname(__DIR__, 2));
+            assert($app instanceof App);
+            self::$app = $app;
             self::$app->initializeTestState();
         }
 
@@ -55,7 +57,7 @@ abstract class AppTestCase extends BaseTestCase
 
         $platform = $connection->getDatabasePlatform();
 
-        if ($platform instanceof \Doctrine\DBAL\Platforms\SqlitePlatform) {
+        if ($platform instanceof \Doctrine\DBAL\Platforms\SQLitePlatform) {
             $connection->executeStatement('PRAGMA foreign_keys = OFF');
             $schemaManager = $connection->createSchemaManager();
             foreach ($schemaManager->listTableNames() as $table) {
@@ -77,6 +79,10 @@ abstract class AppTestCase extends BaseTestCase
     // HTTP helpers
     // ----------------------------
 
+    /**
+     * @param array<string, mixed>  $query
+     * @param array<string, string> $headers
+     */
     protected function get(string $uri, array $query = [], array $headers = []): TestResponse
     {
         if ($query) {
@@ -86,26 +92,45 @@ abstract class AppTestCase extends BaseTestCase
         return $this->request('GET', $uri, [], null, $headers);
     }
 
+    /**
+     * @param array<string, mixed>  $data
+     * @param array<string, string> $headers
+     */
     protected function post(string $uri, array $data = [], array $headers = []): TestResponse
     {
         return $this->request('POST', $uri, $data, null, $headers);
     }
 
+    /**
+     * @param array<string, mixed>  $data
+     * @param array<string, string> $headers
+     */
     protected function put(string $uri, array $data = [], array $headers = []): TestResponse
     {
         return $this->request('PUT', $uri, $data, null, $headers);
     }
 
+    /**
+     * @param array<string, mixed>  $data
+     * @param array<string, string> $headers
+     */
     protected function patch(string $uri, array $data = [], array $headers = []): TestResponse
     {
         return $this->request('PATCH', $uri, $data, null, $headers);
     }
 
+    /**
+     * @param array<string, mixed>  $data
+     * @param array<string, string> $headers
+     */
     protected function delete(string $uri, array $data = [], array $headers = []): TestResponse
     {
         return $this->request('DELETE', $uri, $data, null, $headers);
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     protected function form(string $uri, array $data = []): TestResponse
     {
         return $this->request('POST', $uri, $data, null, [
@@ -116,6 +141,10 @@ abstract class AppTestCase extends BaseTestCase
         ]);
     }
 
+    /**
+     * @param array<string, mixed>  $data
+     * @param array<string, string> $headers
+     */
     protected function json(string $method, string $uri, array $data = [], array $headers = []): TestResponse
     {
         $headers['Content-Type'] ??= 'application/json';
@@ -123,6 +152,10 @@ abstract class AppTestCase extends BaseTestCase
         return $this->request($method, $uri, $data, null, $headers);
     }
 
+    /**
+     * @param array<string, mixed>  $data
+     * @param array<string, string> $headers
+     */
     protected function request(
         string $method,
         string $uri,
@@ -196,6 +229,9 @@ abstract class AppTestCase extends BaseTestCase
         return new TestResponse($this->app()->handle($request));
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     private function buildStream(?string $contentType, array $data, ?string $raw): StreamInterface
     {
         if (null !== $raw) {

@@ -9,6 +9,7 @@ use Psr\Http\Message\ResponseInterface;
 
 class TestResponse
 {
+    /** @var array<string, mixed>|null */
     private ?array $jsonData = null;
     private bool $jsonParsed = false;
 
@@ -84,6 +85,9 @@ class TestResponse
         return $body->getContents();
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function jsonData(): array
     {
         if (!$this->jsonParsed) {
@@ -178,6 +182,9 @@ class TestResponse
     // Internals
     // ----------------------------
 
+    /**
+     * @param array<string, mixed> $array
+     */
     private function arrayGet(array $array, string $key, mixed $default = null): mixed
     {
         foreach (explode('.', $key) as $segment) {
