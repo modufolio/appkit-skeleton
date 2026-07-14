@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Attributes\Template;
 use Modufolio\Appkit\Core\AbstractController;
 use Modufolio\Appkit\Security\Csrf\CsrfTokenManagerInterface;
-use Modufolio\Appkit\Template\Template;
+use Modufolio\Appkit\Template\Template as TemplateEngine;
 use Modufolio\Psr7\Http\Response;
 use Psr\Http\Message\ResponseInterface;
-use Psr\Http\Message\ServerRequestInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
 class HomeController extends AbstractController
@@ -20,15 +20,8 @@ class HomeController extends AbstractController
     }
 
     #[Route(path: '/', name: 'home', methods: ['GET'])]
-    public function index(ServerRequestInterface $request): ResponseInterface
+    public function index(#[Template('home')] TemplateEngine $template): ResponseInterface
     {
-        $template = new Template(
-            name: 'home',
-            templatePaths: [dirname(__DIR__, 2).'/resources/views'],
-            layoutPaths: [dirname(__DIR__, 2).'/resources/views/layouts'],
-            request: $request,
-        );
-
         return new Response(body: $template->render([
             'title' => 'Welcome',
             'user' => $this->getUser(),

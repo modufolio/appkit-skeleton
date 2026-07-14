@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Resolver\TemplateResolver;
 use Modufolio\Appkit\Core\Kernel;
 use Modufolio\Appkit\Core\NativeApplicationState;
 use Modufolio\Appkit\Exception\ExceptionHandler;
@@ -166,6 +167,11 @@ class App extends Kernel
                     $serializer,
                     $this->request(),
                     $this->validator()
+                ),
+                new TemplateResolver(
+                    [$this->baseDir.'/resources/views'],
+                    [$this->baseDir.'/resources/views/layouts'],
+                    $this->request()
                 ),
             ]))
             ->addResolver(new TypeHintContainerResolver($this))
