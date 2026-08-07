@@ -33,6 +33,3 @@
 /.phpunit.result.cache
 /coverage/
 
-# Composer / npm
-package-lock.json
-composer.lock
