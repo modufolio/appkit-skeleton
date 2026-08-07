@@ -35,8 +35,8 @@ return [
     RememberMeAuthenticator::class => fn () => new RememberMeAuthenticator(
         userProvider: $this->userProvider(),
         options: [
-            'secret' => env('REMEMBER_ME_SECRET'),
-            'cookie_secure' => filter_var(env('COOKIE_SECURE'), FILTER_VALIDATE_BOOL),
+            'secret' => env()->getRequired('REMEMBER_ME_SECRET'),
+            'cookie_secure' => env()->getBool('COOKIE_SECURE', true),
         ],
     ),
     Environment::class => fn () => $this->environment(),

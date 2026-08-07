@@ -10,7 +10,7 @@
     ],
     "require": {
         "php": "^8.2",
-        "modufolio/appkit": "^0.3",
+        "modufolio/appkit": "^0.7",
         "modufolio/http": "^0.1.0"
     },
     "require-dev": {

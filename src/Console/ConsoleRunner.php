@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Console;
 
+use App\AppFactory;
 use App\Command\AddUserCommand;
 use Doctrine\DBAL\DriverManager;
 use Doctrine\DBAL\Tools\Console as DBALConsole;
@@ -40,6 +41,7 @@ use Doctrine\ORM\Tools\Console\Command\ValidateSchemaCommand;
 use Doctrine\ORM\Tools\Console\EntityManagerProvider\ConnectionFromManagerProvider;
 use Doctrine\ORM\Tools\Console\EntityManagerProvider\SingleManagerProvider;
 use Modufolio\Appkit\Command\MakerCommand;
+use Modufolio\Appkit\Command\ControllersDebugCommand;
 use Modufolio\Appkit\Command\RouterDebugCommand;
 use Modufolio\Appkit\Console\Doctrine\DoctrineHelper;
 use Modufolio\Appkit\Console\Doctrine\EntityClassGenerator;
@@ -160,6 +162,10 @@ final class ConsoleRunner
             ),
             $this->createMakerCommand(),
             new RouterDebugCommand($this->router),
+            // Reports whether every routed controller can actually be built by
+            // the container, so a broken constructor is caught here rather than
+            // by the first visitor to hit the page.
+            new ControllersDebugCommand(AppFactory::create($this->projectDir), $this->router),
         ]);
     }
 
