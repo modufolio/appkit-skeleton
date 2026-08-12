@@ -1,4 +1,8 @@
-<?php // Register layout assets on the stack — emitted below by renderCss() / renderJs().?>
+<?php // resources/views/default.php
+
+/** @var Modufolio\Appkit\Template\Template $this */
+
+?>
 <?php $this->css('/assets/css/app.css'); ?>
 <?php $this->js('/assets/js/app.js'); ?>
 <!DOCTYPE html>

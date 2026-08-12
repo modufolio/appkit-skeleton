@@ -1,4 +1,10 @@
-<?php $template->layout('default'); ?>
+<?php // resources/views/login.php
+
+/** @var Modufolio\Appkit\Template\Template $this */
+
+$this->layout('default');
+
+?>
 
 <main class="grid min-h-full place-items-center bg-gradient-to-b from-gray-50 to-gray-100 px-4 py-12">
     <div class="w-full max-w-md">
@@ -36,7 +42,6 @@
                 <div>
                     <div class="flex items-center justify-between">
                         <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
-                        <a href="#" class="text-xs font-medium text-gray-500 hover:text-gray-900">Forgot password?</a>
                     </div>
                     <input id="password" type="password" name="password" required autocomplete="current-password"
                            placeholder="••••••••"

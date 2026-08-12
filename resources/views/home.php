@@ -1,4 +1,10 @@
-<?php $template->layout('default'); ?>
+<?php // resources/views/home.php
+
+/** @var Modufolio\Appkit\Template\Template $this */
+
+$this->layout('default');
+
+?>
 
 <main class="mx-auto flex min-h-full max-w-2xl flex-col justify-center px-6 py-16">
     <h1 class="text-4xl font-semibold tracking-tight">Welcome to AppKit</h1>
