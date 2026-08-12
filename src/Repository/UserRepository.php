@@ -44,7 +44,7 @@ class UserRepository extends EntityRepository implements UserProviderInterface, 
         return UserInterface::class === $class || is_subclass_of($class, UserInterface::class);
     }
 
-    public function upgradePassword(PasswordAuthenticatedUserInterface $user, string $newEncodedPassword): void
+    public function upgradePassword(PasswordAuthenticatedUserInterface $user, #[\SensitiveParameter] string $newEncodedPassword): void
     {
         if (!$user instanceof User) {
             return;

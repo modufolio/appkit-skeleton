@@ -129,7 +129,7 @@ class AddUserCommand extends Command
 
         $question = new Question('Password (hidden)');
         $question->setHidden(true);
-        $question->setValidator(function (?string $value): string {
+        $question->setValidator(function (#[\SensitiveParameter] ?string $value): string {
             if (!$value || strlen($value) < 8) {
                 throw new \RuntimeException('Password must be at least 8 characters.');
             }
