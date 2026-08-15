@@ -20,8 +20,6 @@ use Modufolio\Appkit\Resolver\ResolverPipeline;
 use Modufolio\Appkit\Resolver\TypeHintContainerResolver;
 use Modufolio\Appkit\Resolver\TypeHintResolver;
 use Modufolio\Appkit\Resolver\UserResolver;
-use Modufolio\Appkit\Security\Csrf\CsrfTokenManager;
-use Modufolio\Appkit\Security\Csrf\CsrfTokenManagerInterface;
 use Modufolio\Appkit\Security\User\UserProviderInterface;
 use Modufolio\Appkit\Template\Template;
 use Modufolio\Psr7\Http\Response;
@@ -44,7 +42,6 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 class App extends Kernel
 {
-    private ?CsrfTokenManagerInterface $csrfTokenManager = null;
     private ?UserProviderInterface $userProvider = null;
 
     /**
@@ -123,7 +120,6 @@ class App extends Kernel
         $this->environment = null;
         $this->instances = [];
         $this->userProvider = null;
-        $this->csrfTokenManager = null;
         $this->parameterResolver = null;
     }
 
@@ -136,11 +132,6 @@ class App extends Kernel
         }
 
         return $this->userProvider;
-    }
-
-    public function csrfTokenManager(): CsrfTokenManagerInterface
-    {
-        return $this->csrfTokenManager ??= new CsrfTokenManager($this->session());
     }
 
     public function serializer(): SerializerInterface

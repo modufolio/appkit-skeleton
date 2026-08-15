@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "58e67f0a8fcaad0f3f29c88f54879b74",
+    "content-hash": "e80a880fb719512c1f34f02d707affa3",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -1278,16 +1278,16 @@
         },
         {
             "name": "modufolio/appkit",
-            "version": "v0.7.0",
+            "version": "v0.8.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/modufolio/appkit.git",
-                "reference": "5a8a80343f0470a1502840ae45ece6162d52813f"
+                "reference": "77f6b5c4fdb82d4483a5e221bc9dd2245893c0e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/modufolio/appkit/zipball/5a8a80343f0470a1502840ae45ece6162d52813f",
-                "reference": "5a8a80343f0470a1502840ae45ece6162d52813f",
+                "url": "https://api.github.com/repos/modufolio/appkit/zipball/77f6b5c4fdb82d4483a5e221bc9dd2245893c0e0",
+                "reference": "77f6b5c4fdb82d4483a5e221bc9dd2245893c0e0",
                 "shasum": ""
             },
             "require": {
@@ -1365,9 +1365,9 @@
             "description": "A lean PHP framework built on Symfony components and Doctrine ORM, with hand-wired DI, attribute routing, and first-class Inertia.js support",
             "support": {
                 "issues": "https://github.com/modufolio/appkit/issues",
-                "source": "https://github.com/modufolio/appkit/tree/v0.7.0"
+                "source": "https://github.com/modufolio/appkit/tree/v0.8.0"
             },
-            "time": "2026-08-07T16:20:31+00:00"
+            "time": "2026-08-15T21:32:37+00:00"
         },
         {
             "name": "modufolio/http",
