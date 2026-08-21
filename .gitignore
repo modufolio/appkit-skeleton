@@ -30,6 +30,9 @@
 
 # PHPUnit
 /.phpunit.cache
+/.phpunit.cache.par
 /.phpunit.result.cache
 /coverage/
 
+# PHP fixer
+.php-cs-fixer.cache

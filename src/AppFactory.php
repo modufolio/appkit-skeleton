@@ -20,6 +20,24 @@ use Symfony\Component\Routing\Loader\PhpFileLoader;
 
 class AppFactory
 {
+    /**
+     * Writable runtime directory (sessions, Doctrine proxies, caches).
+     *
+     * Under ParaTest each worker exports its own TEST_TOKEN and gets a private
+     * subdirectory, so one worker can never read or unlink another's files.
+     * Outside the test runner this is the plain var/ directory.
+     */
+    public static function varDir(string $baseDir): string
+    {
+        $token = getenv('TEST_TOKEN');
+
+        if (false === $token || '' === $token) {
+            return $baseDir.'/var';
+        }
+
+        return $baseDir.'/var/test/'.preg_replace('/[^A-Za-z0-9_-]/', '', (string) $token);
+    }
+
     public static function create(string $baseDir): AppInterface
     {
         // Allow this app's User entity to be unserialized from session-stored
@@ -43,7 +61,7 @@ class AppFactory
             ? $baseDir."/config/{$env}/doctrine.php"
             : $baseDir.'/config/doctrine.php';
 
-        return (new App(
+        $app = new App(
             baseDir: $baseDir,
             routeLoader: $routeLoader,
             userProviderClass: UserRepository::class,
@@ -56,6 +74,10 @@ class AppFactory
                 'interfaces' => $baseDir.'/config/interfaces.php',
             ],
             repositories: F::load($baseDir.'/config/repositories.php', []),
-        ))->configureSecurity($security)->boot();
+        );
+
+        $app->setVarDir(self::varDir($baseDir));
+
+        return $app->configureSecurity($security)->boot();
     }
 }

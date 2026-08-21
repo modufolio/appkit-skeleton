@@ -40,14 +40,17 @@ use Doctrine\ORM\Tools\Console\Command\SchemaTool\UpdateCommand;
 use Doctrine\ORM\Tools\Console\Command\ValidateSchemaCommand;
 use Doctrine\ORM\Tools\Console\EntityManagerProvider\ConnectionFromManagerProvider;
 use Doctrine\ORM\Tools\Console\EntityManagerProvider\SingleManagerProvider;
-use Modufolio\Appkit\Command\MakerCommand;
 use Modufolio\Appkit\Command\ControllersDebugCommand;
+use Modufolio\Appkit\Command\FirewallDebugCommand;
+use Modufolio\Appkit\Command\MakerCommand;
 use Modufolio\Appkit\Command\RouterDebugCommand;
+use Modufolio\Appkit\Command\SecurityValidateCommand;
 use Modufolio\Appkit\Console\Doctrine\DoctrineHelper;
 use Modufolio\Appkit\Console\Doctrine\EntityClassGenerator;
 use Modufolio\Appkit\Console\FileManager;
 use Modufolio\Appkit\Console\Generator;
 use Modufolio\Appkit\Console\Maker\MakeEntity;
+use Modufolio\Appkit\Core\AppInterface;
 use Modufolio\Appkit\Doctrine\OrmConfigurator;
 use Modufolio\Appkit\Routing\Loader\AttributeClassLoader;
 use Modufolio\Appkit\Routing\Router;
@@ -77,6 +80,7 @@ final class ConsoleRunner
     public Application $cli;
     private Router $router;
     private ?EntityManagerInterface $entityManager = null;
+    private ?AppInterface $app = null;
     /** @var array<string, string> */
     private array $fileMap = [];
     private ?string $env = null;
@@ -108,6 +112,11 @@ final class ConsoleRunner
         $this->fileMap['doctrine'] = $configFile;
         $this->cli = $this->createApplication();
         $this->router = $this->createRouter();
+    }
+
+    public function app(): AppInterface
+    {
+        return $this->app ??= AppFactory::create($this->projectDir);
     }
 
     public function entityManager(): EntityManagerInterface
@@ -165,7 +174,10 @@ final class ConsoleRunner
             // Reports whether every routed controller can actually be built by
             // the container, so a broken constructor is caught here rather than
             // by the first visitor to hit the page.
-            new ControllersDebugCommand(AppFactory::create($this->projectDir), $this->router),
+            new ControllersDebugCommand($this->app(), $this->router),
+            // debug:firewall — inspect firewalls, access-control rules and roles.
+            new FirewallDebugCommand($this->app()),
+            new SecurityValidateCommand($this->app()),
         ]);
     }
 
