@@ -46,10 +46,10 @@ class App extends Kernel
 
     /**
      * @param array<string, mixed> $authenticators
-     * @param array<string, mixed> $controllers
-     * @param array<string, mixed> $factories
-     * @param array<string, mixed> $fileMap
-     * @param array<string, mixed> $repositories
+     * @param array<class-string, array<int|string, mixed>> $controllers
+     * @param array<string, mixed>                            $factories
+     * @param array<string, mixed>                            $fileMap
+     * @param array<class-string, class-string>               $repositories
      */
     public function __construct(
         string $baseDir,

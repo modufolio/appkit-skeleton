@@ -92,6 +92,7 @@ final class ConsoleRunner
     public function __construct(
         private $classLoader,
         private string $userClass,
+        /** @var non-empty-string */
         private string $projectDir,
     ) {
         $input = new ArgvInput();

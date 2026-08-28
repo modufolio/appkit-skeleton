@@ -38,6 +38,9 @@ composer install
 npm install
 cp .env.example .env
 
+# Generate the remember-me cookie secret (required — requests fail without it)
+php -r "echo 'REMEMBER_ME_SECRET=' . bin2hex(random_bytes(32)) . PHP_EOL;" >> .env
+
 # Build assets
 npm run build
 
@@ -62,8 +65,7 @@ config/               DI, routes, security, doctrine, …
   routes.php          Route loaders
   security.php        Firewalls + role hierarchy
   controllers.php     Controller → dependency map
-  factories.php       Service factories
-  interfaces.php      Interface → kernel-method map
+  services.php        Application services (ServiceConfigurator)
   repositories.php    Repository → entity map
   authenticators.php  Authenticator factories
   doctrine.php        ORM connection + entity paths
