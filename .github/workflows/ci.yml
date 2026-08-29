@@ -1,0 +1,60 @@
+name: CI
+
+on:
+    push:
+        branches: [main]
+    pull_request:
+
+jobs:
+    tests:
+        name: Unit tests & static analysis
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: shivammathur/setup-php@v2
+              with:
+                  php-version: '8.4'
+                  extensions: intl, zip, sqlite3, pdo_sqlite
+                  coverage: none
+
+            - uses: ramsey/composer-install@v3
+
+            - name: Prepare environment
+              run: |
+                  cp .env.example .env
+                  php -r "echo 'REMEMBER_ME_SECRET=' . bin2hex(random_bytes(32)) . PHP_EOL;" >> .env
+
+            - run: vendor/bin/phpunit --no-coverage
+
+            - run: php -d memory_limit=1G vendor/bin/phpstan analyse --configuration phpstan.php --no-progress
+
+    smoke:
+        name: Login-flow smoke (PHP dev server)
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: shivammathur/setup-php@v2
+              with:
+                  php-version: '8.4'
+                  extensions: intl, zip, sqlite3, pdo_sqlite
+                  coverage: none
+
+            - uses: ramsey/composer-install@v3
+
+            - name: Prepare application
+              run: |
+                  cp .env.example .env
+                  php -r "echo 'REMEMBER_ME_SECRET=' . bin2hex(random_bytes(32)) . PHP_EOL;" >> .env
+                  php bin/console orm:schema-tool:create
+                  php bin/console app:add-user ci@example.com cipass123
+
+            - name: Start dev server
+              run: |
+                  php -S 127.0.0.1:8000 -t public/ router.php &
+                  curl --retry 15 --retry-connrefused --retry-delay 1 -s \
+                      http://127.0.0.1:8000/login > /dev/null
+
+            - name: Run smoke test
+              run: bash tests/smoke/login-flow.sh ci@example.com cipass123
