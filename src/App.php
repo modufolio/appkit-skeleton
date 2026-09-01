@@ -114,6 +114,9 @@ class App extends Kernel
     {
         $this->state?->reset();
         $this->state = null;
+
+        // Modules drop their per-request state alongside the app's own.
+        $this->resetModules();
         $this->debugStack->resetQueries();
         $this->entityManagerFactory?->reset();
         $this->emitter = null;
