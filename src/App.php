@@ -77,9 +77,8 @@ class App extends Kernel
         $this->state?->reset();
         $this->state = null;
 
-        $this->state = new NativeApplicationState($request, $this->baseDir, $this->firewallConfig);
-
         try {
+            $this->state = $this->createState($request);
             $response = $this->handleAuthentication($request);
         } catch (\Throwable $e) {
             $response = $this->exceptionHandler()->handle($e, $request);
