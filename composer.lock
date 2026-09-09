@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "279897740113fb8d07589e0a3746f1e2",
+    "content-hash": "534894a021d5d60c1062d03959f3b370",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -1166,16 +1166,16 @@
         },
         {
             "name": "modufolio/appkit",
-            "version": "v0.17.0",
+            "version": "v0.18.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/modufolio/appkit.git",
-                "reference": "7122fd887bc6e47433a24fe707458834486bfb35"
+                "reference": "af926a7bedd5f960b5f34ee45afaecb18b16449a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/modufolio/appkit/zipball/7122fd887bc6e47433a24fe707458834486bfb35",
-                "reference": "7122fd887bc6e47433a24fe707458834486bfb35",
+                "url": "https://api.github.com/repos/modufolio/appkit/zipball/af926a7bedd5f960b5f34ee45afaecb18b16449a",
+                "reference": "af926a7bedd5f960b5f34ee45afaecb18b16449a",
                 "shasum": ""
             },
             "require": {
@@ -1262,9 +1262,9 @@
             "description": "A lean PHP framework built on Symfony components and Doctrine ORM, with hand-wired DI, attribute routing, and first-class Inertia.js support",
             "support": {
                 "issues": "https://github.com/modufolio/appkit/issues",
-                "source": "https://github.com/modufolio/appkit/tree/v0.17.0"
+                "source": "https://github.com/modufolio/appkit/tree/v0.18.0"
             },
-            "time": "2026-09-07T19:32:20+00:00"
+            "time": "2026-09-08T19:53:49+00:00"
         },
         {
             "name": "modufolio/http",
@@ -5988,16 +5988,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "12.5.34",
+            "version": "12.5.35",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "6cbff63d670de92cb1cb3d2ff9f40327e9da9c7f"
+                "reference": "345ac22e42cb14cdc7aa8428655d8bb8c82a4aab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/6cbff63d670de92cb1cb3d2ff9f40327e9da9c7f",
-                "reference": "6cbff63d670de92cb1cb3d2ff9f40327e9da9c7f",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/345ac22e42cb14cdc7aa8428655d8bb8c82a4aab",
+                "reference": "345ac22e42cb14cdc7aa8428655d8bb8c82a4aab",
                 "shasum": ""
             },
             "require": {
@@ -6066,7 +6066,7 @@
             "support": {
                 "issues": "https://github.com/sebastianbergmann/phpunit/issues",
                 "security": "https://github.com/sebastianbergmann/phpunit/security/policy",
-                "source": "https://github.com/sebastianbergmann/phpunit/tree/12.5.34"
+                "source": "https://github.com/sebastianbergmann/phpunit/tree/12.5.35"
             },
             "funding": [
                 {
@@ -6074,7 +6074,7 @@
                     "type": "other"
                 }
             ],
-            "time": "2026-08-27T08:38:28+00:00"
+            "time": "2026-09-09T04:48:50+00:00"
         },
         {
             "name": "psr/event-dispatcher",

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App;
 
-use App\Resolver\TemplateResolver;
+use Modufolio\Appkit\Resolver\TemplateResolver;
 use Modufolio\Appkit\Core\Kernel;
 use Modufolio\Appkit\Core\NativeApplicationState;
 use Modufolio\Appkit\Exception\ExceptionHandler;

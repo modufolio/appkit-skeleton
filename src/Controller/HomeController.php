@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\Attributes\Template;
+use Modufolio\Appkit\Attributes\Template;
 use Modufolio\Appkit\Core\AbstractController;
 use Modufolio\Appkit\Security\Csrf\CsrfTokenManagerInterface;
 use Modufolio\Appkit\Template\Template as TemplateEngine;
