@@ -10,7 +10,7 @@ jobs:
         name: Unit tests & static analysis
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v7
 
             - uses: shivammathur/setup-php@v2
               with:
@@ -33,7 +33,7 @@ jobs:
         name: Login-flow smoke (PHP dev server)
         runs-on: ubuntu-latest
         steps:
-            - uses: actions/checkout@v4
+            - uses: actions/checkout@v7
 
             - uses: shivammathur/setup-php@v2
               with:
