@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace App;
 
-use Modufolio\Appkit\Resolver\TemplateResolver;
 use Modufolio\Appkit\Core\Kernel;
-use Modufolio\Appkit\Core\NativeApplicationState;
 use Modufolio\Appkit\Exception\ExceptionHandler;
 use Modufolio\Appkit\Exception\ExceptionHandlerInterface;
 use Modufolio\Appkit\Resolver\AssociativeArrayResolver;
@@ -17,15 +15,13 @@ use Modufolio\Appkit\Resolver\MapQueryParameterResolver;
 use Modufolio\Appkit\Resolver\MapRequestPayloadResolver;
 use Modufolio\Appkit\Resolver\ParameterResolverInterface;
 use Modufolio\Appkit\Resolver\ResolverPipeline;
+use Modufolio\Appkit\Resolver\TemplateResolver;
 use Modufolio\Appkit\Resolver\TypeHintContainerResolver;
 use Modufolio\Appkit\Resolver\TypeHintResolver;
 use Modufolio\Appkit\Resolver\UserResolver;
 use Modufolio\Appkit\Security\User\UserProviderInterface;
 use Modufolio\Appkit\Template\Template;
 use Modufolio\Psr7\Http\Response;
-use Modufolio\Psr7\Http\ServerRequest;
-use Modufolio\Psr7\Http\Stream;
-use Modufolio\Psr7\Http\Uri;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Log\LoggerInterface;
@@ -45,11 +41,11 @@ class App extends Kernel
     private ?UserProviderInterface $userProvider = null;
 
     /**
-     * @param array<string, mixed> $authenticators
+     * @param array<string, mixed>                          $authenticators
      * @param array<class-string, array<int|string, mixed>> $controllers
-     * @param array<string, mixed>                            $factories
-     * @param array<string, mixed>                            $fileMap
-     * @param array<class-string, class-string>               $repositories
+     * @param array<string, mixed>                          $factories
+     * @param array<string, mixed>                          $fileMap
+     * @param array<class-string, class-string>             $repositories
      */
     public function __construct(
         string $baseDir,
@@ -87,24 +83,14 @@ class App extends Kernel
         return $this->prepareResponse()->prepare($request, $response);
     }
 
+    /**
+     * Prime request-scoped state outside a real request, for tests and CLI
+     * code. The kernel's initializeConsoleState() does exactly this; kept as
+     * a name this project's tests already call.
+     */
     public function initializeTestState(): self
     {
-        if (null === $this->state) {
-            $request = new ServerRequest(
-                method: 'GET',
-                uri: new Uri('http://localhost'),
-                headers: [],
-                body: Stream::create(''),
-                version: '1.1',
-                serverParams: [
-                    'HTTP_HOST' => 'localhost',
-                    'REQUEST_METHOD' => 'GET',
-                    'REQUEST_URI' => '/',
-                    'SERVER_PROTOCOL' => 'HTTP/1.1',
-                ]
-            );
-            $this->state = new NativeApplicationState($request, $this->baseDir, $this->firewallConfig);
-        }
+        $this->initializeConsoleState();
 
         return $this;
     }
